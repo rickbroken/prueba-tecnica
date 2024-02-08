@@ -5,7 +5,7 @@ import Header from './components/Header';
 import Aside from './components/Aside';
 import { Route, Routes } from 'react-router-dom';
 import Home from './common/Home';
-import AdministrarVehiculo from './common/AdministrarVehiculo';
+import AdministrarVehiculos from './common/AdministrarVehiculos';
 
 
 function App() {
@@ -21,8 +21,8 @@ function App() {
           <Route path='/'  element={
               <Home />
             }/>
-          <Route path='/administrar-vehiculo'  element={
-              <AdministrarVehiculo />
+          <Route path='/administrar-vehiculos'  element={
+              <AdministrarVehiculos />
             }/>
           <Route path='*'  element={
             <Home />

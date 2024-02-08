@@ -1,7 +1,14 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button, Grid } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 const Aside: React.FC = () => {
+
+  const navigate = useNavigate();
+
+  const redirectHome:() => void = () => {
+    navigate('/');
+  }
   return (
     <Grid 
       container 
@@ -11,7 +18,12 @@ const Aside: React.FC = () => {
     >
       <div>
         <Icon className="pointer" width={30} icon="gg:menu-round" />
-        <Icon className="pointer" width={25} icon="ic:sharp-home" />
+        <Icon 
+          className="pointer" 
+          width={25} 
+          icon="ic:sharp-home"
+          onClick={redirectHome}  
+        />
       </div>
       <div>
         <Button className="pointer" variant="contained">

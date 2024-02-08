@@ -1,4 +1,5 @@
 import { Grid } from "@mui/material";
+import { Link } from "react-router-dom";
 
 
 const Header: React.FC = () => {
@@ -24,7 +25,16 @@ const Header: React.FC = () => {
 
       <Grid item className='nav'>
         <ul>
-          <li>Administrador Vehículo Arrendado</li>
+          <Grid 
+            item
+
+          >
+            <Link
+              to={'/administrar-vehiculos'}
+            >
+              Administrador Vehículo Arrendado
+            </Link>
+          </Grid>
         </ul>
       </Grid>
     </Grid>
