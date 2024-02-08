@@ -1,7 +1,7 @@
 import { Grid } from "@mui/material";
 
 
-const Header = () => {
+const Header: React.FC = () => {
   return (
     <Grid
       container xs={1} md={2}

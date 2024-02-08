@@ -3,6 +3,9 @@ import { Icon } from '@iconify/react';
 import './App.css';
 import Header from './components/Header';
 import Aside from './components/Aside';
+import { Route, Routes } from 'react-router-dom';
+import Home from './common/Home';
+import AdministrarVehiculo from './common/AdministrarVehiculo';
 
 
 function App() {
@@ -12,10 +15,20 @@ function App() {
       <Grid container  spacing={2}>
         <Header />
         <Grid item xs={1} md={10}>
-          <Aside />
-          <Grid>
-            Main
-          </Grid>
+        <Aside />
+
+        <Routes>
+          <Route path='/'  element={
+              <Home />
+            }/>
+          <Route path='/administrar-vehiculo'  element={
+              <AdministrarVehiculo />
+            }/>
+          <Route path='*'  element={
+            <Home />
+          }/>
+        </Routes>
+          
         </Grid>
         
       </Grid>

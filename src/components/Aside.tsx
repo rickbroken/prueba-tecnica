@@ -1,7 +1,7 @@
 import { Icon } from "@iconify/react/dist/iconify.js";
 import { Button, Grid } from "@mui/material";
 
-const Aside = () => {
+const Aside: React.FC = () => {
   return (
     <Grid 
       container 
