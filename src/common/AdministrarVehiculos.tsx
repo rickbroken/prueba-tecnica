@@ -80,8 +80,9 @@ const AdministrarVehiculos: React.FC = () => {
               fullWidth
               size="small"
               id="outlined-basic"
-              label="Nombre *"
+              placeholder="Nombre *"
               variant="outlined"
+              value={nuevoVehiculo.nombre}
               onChange={(e) => setNuevoVehiculo((prev) => ({ ...prev, nombre: e.target.value }))}
             />
           </Grid>
@@ -90,8 +91,9 @@ const AdministrarVehiculos: React.FC = () => {
               fullWidth
               size="small"
               id="outlined-basic"
-              label="Placa *"
+              placeholder="Placa *"
               variant="outlined"
+              value={nuevoVehiculo.placa}
               onChange={(e) => setNuevoVehiculo((prev) => ({ ...prev, placa: e.target.value }))}
             />
           </Grid>
@@ -100,7 +102,7 @@ const AdministrarVehiculos: React.FC = () => {
               fullWidth
               size="small"
               id="outlined-basic"
-              label="Marca *"
+              placeholder="Marca *"
               variant="outlined"
             />
           </Grid>
@@ -109,8 +111,9 @@ const AdministrarVehiculos: React.FC = () => {
               fullWidth
               size="small"
               id="outlined-basic"
-              label="Empresa proveedora *"
+              placeholder="Empresa proveedora *"
               variant="outlined"
+              value={nuevoVehiculo.empresa_contratista}
               onChange={(e) => setNuevoVehiculo((prev) => ({ ...prev, empresa_contratista: e.target.value }))}
             />
           </Grid>
@@ -120,10 +123,11 @@ const AdministrarVehiculos: React.FC = () => {
               fullWidth
               size="small"
               id="outlined-basic"
-              label="Descripcion *"
+              placeholder="Descripcion *"
               variant="outlined"
               multiline
               rows={3}
+              value={nuevoVehiculo.descripcion}
               onChange={(e) => setNuevoVehiculo((prev) => ({ ...prev, descripcion: e.target.value }))}
             />
           </Grid>

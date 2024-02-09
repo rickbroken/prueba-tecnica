@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { type Vehiculo } from "../types";
 import { Button, Grid, Pagination, TextField } from "@mui/material";
-import SearchIcon from "@mui/icons-material/Search";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
 import DeleteRegistroVehiculo from "./DeleteRegistroVehiculo";
+import Loading from '../img/Loading.svg';
 
 const token = import.meta.env.VITE_API_TOKEN as string;
 
@@ -76,7 +76,13 @@ const TablaVehiculosArrendados: React.FC = () => {
           </Button>
         </Grid>
       </Grid>
-      <table width={"100%"} style={{ marginTop: "10px" }}>
+      <table 
+        width={"100%"} 
+        style={{ 
+          marginTop: "10px", 
+          position: 'relative',
+          marginBottom: '50px'
+        }}>
         <thead>
           <tr>
             <th>ID vehiculo</th>
@@ -89,22 +95,27 @@ const TablaVehiculosArrendados: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {vehiculos?.map((vehiculo) => {
-            if (vehiculo.id_vehiculo_arrendado !== undefined) {
-              return (
-                <tr key={vehiculo.id_vehiculo_arrendado}>
-                  <td>{vehiculo.id_vehiculo_arrendado}</td>
-                  <td>{vehiculo.id_marca}</td>
-                  <td>{vehiculo.nombre}</td>
-                  <td>{vehiculo.placa}</td>
-                  <td>{vehiculo.empresa_contratista}</td>
-                  <td>{vehiculo.tiene_hoja_de_vida ? "SI" : "No"}</td>
-                  <td style={{textAlign: 'center'}}>
-                    <DeleteRegistroVehiculo id_vehiculo_arrendado={vehiculo.id_vehiculo_arrendado}/>
-                  </td>
-                </tr>
-              )
-            }
+          {vehiculos.length === 0 ?
+            <Grid item position={'absolute'} display={'flex'} justifyContent={'center'} width={'100%'}>
+              <img width={50} src={Loading} alt="Mi SVG" />
+            </Grid>
+          :
+            vehiculos?.map((vehiculo) => {
+              if (vehiculo.id_vehiculo_arrendado !== undefined) {
+                return (
+                  <tr key={vehiculo.id_vehiculo_arrendado}>
+                    <td>{vehiculo.id_vehiculo_arrendado}</td>
+                    <td>{vehiculo.id_marca}</td>
+                    <td>{vehiculo.nombre}</td>
+                    <td>{vehiculo.placa}</td>
+                    <td>{vehiculo.empresa_contratista}</td>
+                    <td>{vehiculo.tiene_hoja_de_vida ? "SI" : "No"}</td>
+                    <td style={{textAlign: 'center'}}>
+                      <DeleteRegistroVehiculo id_vehiculo_arrendado={vehiculo.id_vehiculo_arrendado}/>
+                    </td>
+                  </tr>
+                )
+              }
           })}
         </tbody>
       </table>
