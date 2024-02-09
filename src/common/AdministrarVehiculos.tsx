@@ -7,8 +7,9 @@ import SaveIcon from '@mui/icons-material/Save';
 import SearchIcon from '@mui/icons-material/Search';
 import TablaVehiculosArrendados from "../components/TablaVehiculosArrendados";
 import ModalBuscar from '../components/ModalBuscar';
-import { Marca, type Vehiculo } from "../types";
+import { Marca, NuevaMarca, type Vehiculo } from "../types";
 import { enviarRegistroVehiculo } from "../functions/enviarRegistroVehiculo";
+import RegistroIngresado from "../components/RegistroIngresado";
 
 
 const token = import.meta.env.VITE_API_TOKEN as string;
@@ -18,11 +19,13 @@ const AdministrarVehiculos: React.FC = () => {
   const [modalBuscar, setModalBuscar] = useState<boolean>(false);
   const [marcas, setMarcas] = useState<Marca[]>([]);
   const [inputMarca, setInputMarca] = useState<string>('');
+  const [existeMarca, setExisteMarca] = useState<boolean>()
+  const [modalResgistroIngresado,setModalResgistroIngresado] = useState<boolean>(false)
 
   const [nuevoVehiculo, setNuevoVehiculo] = useState<Vehiculo>({
       nombre: "",
       placa : "",
-      id_marca : 281,
+      id_marca : 291,
       empresa_contratista : "",
       descripcion : "",
       asignar_hoja_de_vida : false,
@@ -41,6 +44,21 @@ const AdministrarVehiculos: React.FC = () => {
     }
   };
   
+  const limpiarForm = () => {
+    setNuevoVehiculo({
+      nombre: "",
+      placa : "",
+      id_marca : 291,
+      empresa_contratista : "",
+      descripcion : "",
+      asignar_hoja_de_vida : false,
+      es_agendable : false,
+      fecha_inicio:"",
+      fecha_fin:""
+    })
+    setInputMarca('')
+  }
+
   const handleFechaFin = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e.target.value)    
     if (e) {
@@ -51,18 +69,10 @@ const AdministrarVehiculos: React.FC = () => {
     }
   };
 
-  const buscarMarca = () => {
-    console.log(marcas);
-    marcas.map((marca)=>{
-      if(marca.nombre.toLowerCase() === inputMarca.toLowerCase()){
-        setNuevoVehiculo((prev)=>({...prev, id_marca:marca.id_marca}))
-      }
-    })
-  }
-
-
-  useEffect(()=>{
+  const listarMarcas = async() => {
     try {
+      console.log('Buscando marcas...');
+      
       fetch('https://back-end-bia-beta.up.railway.app/api/almacen/marcas/get-list/',{
         method: "GET",
         headers: {
@@ -72,10 +82,68 @@ const AdministrarVehiculos: React.FC = () => {
       })
       .then((res)=> res.json())
       .then((res)=> setMarcas(res))
-      .catch((err)=>console.log('Error al intentar traer lista de amrcas. Code:'+err))
+      .catch((err)=>console.log('Error al intentar traer lista de marcas. Code:'+err))
     } catch (error) {
       console.log(error)      
     }
+  }
+
+  const buscarMarca = async() => {
+    marcas.map((marca)=>{
+      if(marca.nombre.toLowerCase() === inputMarca.toLowerCase()){
+        console.log('Marca encontrada')
+        setExisteMarca(true);
+        console.log(marca.id_marca)        
+        setNuevoVehiculo((prev)=>({...prev, id_marca:marca.id_marca}))
+        
+        return;
+      } else {
+        setExisteMarca(false);
+      }
+    })
+  }
+
+  const crearMarca = async(nuevaMarca: NuevaMarca) => {
+    try {
+      fetch('https://back-end-bia-beta.up.railway.app/api/almacen/marcas/create/',{
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nuevaMarca)
+      })
+      .then((res)=> res.json())
+      .then((res)=> console.log(res))
+      .catch((err)=>console.log('Error al intentar crear una marca. Code:'+err))
+      buscarMarca();
+    } catch (error) {
+      console.log(error)      
+    }
+  } 
+
+
+  const guardarRegistroVehiculo = async() => {
+    if(existeMarca){
+      console.log('Existe marca, se envia registro.')      
+      await enviarRegistroVehiculo(nuevoVehiculo);
+      setModalResgistroIngresado(true);
+      return;
+    } else {
+      console.log('NO existe marca, creando...')      
+      await crearMarca({
+        nombre: inputMarca
+      });
+      await enviarRegistroVehiculo(nuevoVehiculo);
+      setModalResgistroIngresado(true);
+      limpiarForm();
+    }
+  }
+
+
+
+  useEffect(()=>{
+    listarMarcas();
     console.log(nuevoVehiculo)    
   },[nuevoVehiculo])
   
@@ -85,6 +153,10 @@ const AdministrarVehiculos: React.FC = () => {
       {
         modalBuscar &&
         <ModalBuscar setNuevoVehiculo={setNuevoVehiculo} setModalBuscar={setModalBuscar} />
+      }
+      {
+        modalResgistroIngresado && 
+        <RegistroIngresado setModalResgistroIngresado={setModalResgistroIngresado}/>
       }
       <Grid
         container
@@ -195,13 +267,18 @@ const AdministrarVehiculos: React.FC = () => {
               Buscar
             </Button>
             <Button 
-              onClick={()=>enviarRegistroVehiculo(nuevoVehiculo)}
+              onClick={()=>guardarRegistroVehiculo()}
               variant="contained" 
               color="success" 
               startIcon={<SaveIcon />}>
               Guardar
             </Button>
-            <Button variant="contained" color="error" startIcon={<CloseIcon />}>
+            <Button 
+              onClick={()=>limpiarForm()}
+              variant="contained" 
+              color="error" 
+              startIcon={<CloseIcon />}
+            >
               Salir
             </Button>
             <Button variant="contained" style={{background: 'gray'}} startIcon={<DeleteIcon />}>

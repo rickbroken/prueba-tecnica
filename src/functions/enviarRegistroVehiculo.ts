@@ -2,7 +2,7 @@ import {type Vehiculo} from '../types.ts';
 
 const token = import.meta.env.VITE_API_TOKEN as string;
 
-export const enviarRegistroVehiculo = (nuevoVehiculo: Vehiculo) => {
+export const enviarRegistroVehiculo = async(nuevoVehiculo: Vehiculo) => {
   try {
     fetch('https://back-end-bia-beta.up.railway.app/api/almacen/vehiculos/registrar/vehiculo/arrendado/create/',
     {

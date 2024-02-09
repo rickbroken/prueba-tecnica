@@ -39,6 +39,13 @@ const TablaVehiculosArrendados: React.FC = () => {
     }
   };
 
+  const limpiarFiltro = () => {
+    setParams({
+      nombre: "",
+      placa: "",
+    });
+  }
+
   useEffect(() => {
     obtenerVehiculos();
   }, [vehiculos]);
@@ -53,6 +60,7 @@ const TablaVehiculosArrendados: React.FC = () => {
             id="outlined-basic"
             label="Nombre"
             variant="outlined"
+            value={params.nombre}
             onChange={(e) =>
               setParams((prev) => ({ ...prev, nombre: e.target.value }))
             }
@@ -65,13 +73,17 @@ const TablaVehiculosArrendados: React.FC = () => {
             id="outlined-basic"
             label="Placa"
             variant="outlined"
+            value={params.placa}
             onChange={(e) =>
               setParams((prev) => ({ ...prev, placa: e.target.value }))
             }
           />
         </Grid>
         <Grid item>
-          <Button variant="outlined" startIcon={<CleaningServicesIcon />}>
+          <Button 
+            onClick={limpiarFiltro}
+            variant="outlined" 
+            startIcon={<CleaningServicesIcon />}>
             Limpiar
           </Button>
         </Grid>
@@ -118,9 +130,9 @@ const TablaVehiculosArrendados: React.FC = () => {
       </table>
 
       {vehiculos.length === 0 &&
-      <Grid item display={'flex'} justifyContent={'center'} width={'100%'}>
-        <img width={50} src={Loading} alt="Mi SVG" />
-      </Grid>
+        <Grid item display={'flex'} justifyContent={'center'} width={'100%'}>
+          <img width={50} src={Loading} alt="Mi SVG" />
+        </Grid>
       }
 
       <Pagination count={1} />

@@ -36,3 +36,7 @@ export interface Marca {
   activo:        boolean;
   item_ya_usado: boolean;
 }
+
+export interface NuevaMarca {
+  nombre:        string;
+}
