@@ -10,8 +10,9 @@ const Header: React.FC = () => {
 
   return (
     <Grid
-      container
       xs={2}
+      display={'flex'}
+      flexDirection={'column'}
       position={"relative"}
       overflow={"hidden"}
       className="header"
@@ -30,26 +31,29 @@ const Header: React.FC = () => {
         <span style={{ color: "white" }}>LOGO</span>
       </Grid>
 
-      <Grid item className="nav" width={"95%"} justifyContent={"center"}>
-        <ul style={{ width: "100%" }}>
-          <Grid 
-            item 
-            bgcolor={"#cacaca"}
-            borderRadius={'5px'}
-            padding={'10px 0px'}
-            width={"100%"}
-            onClick={redirectAdministrador}
-            className="pointer"
-          >
-            <Link
-              className="link"
-              to={"/administrar-vehiculos"}
+      <Grid height={'100%'}>
+        <Grid item className="nav" width={"95%"} justifyContent={"center"}>
+          <ul style={{ width: "100%" }}>
+            <Grid 
+              item 
+              bgcolor={"#cacaca"}
+              borderRadius={'5px'}
+              padding={'10px 0px'}
+              width={"100%"}
+              onClick={redirectAdministrador}
+              className="pointer"
             >
-              Administrador Vehículo Arrendado
-            </Link>
-          </Grid>
-        </ul>
+              <Link
+                className="link"
+                to={"/administrar-vehiculos"}
+              >
+                Administrador Vehículo Arrendado
+              </Link>
+            </Grid>
+          </ul>
+        </Grid>
       </Grid>
+
     </Grid>
   );
 };

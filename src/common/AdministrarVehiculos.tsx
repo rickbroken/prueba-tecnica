@@ -1,9 +1,5 @@
 import { Button, Checkbox, Grid, TextField } from "@mui/material";
 import TitleMain from "../components/TitleMain";
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
@@ -11,10 +7,14 @@ import SearchIcon from '@mui/icons-material/Search';
 import TablaVehiculosArrendados from "../components/TablaVehiculosArrendados";
 import { useState } from "react";
 import ModalBuscar from '../components/ModalBuscar';
+import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 
 
 const AdministrarVehiculos: React.FC = () => {
-  const [modalBuscar, setModalBuscar] = useState<boolean>(true);
+  const [modalBuscar, setModalBuscar] = useState<boolean>(false);
 
   return (
     <>

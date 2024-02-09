@@ -66,17 +66,19 @@ const TablaVehiculosArrendados: React.FC = () => {
       </Grid>
       <table width={"100%"} style={{ marginTop: "10px" }}>
         <thead>
-          <th>ID Marca</th>
-          <th>ID vehiculo</th>
-          <th>Nombre</th>
-          <th>Placa</th>
-          <th>Empresa Contratista</th>
-          <th>Hoja de vida</th>
+          <tr>
+            <th>ID Marca</th>
+            <th>ID vehiculo</th>
+            <th>Nombre</th>
+            <th>Placa</th>
+            <th>Empresa Contratista</th>
+            <th>Hoja de vida</th>
+          </tr>
         </thead>
         <tbody>
           {vehiculos?.map((vehiculo) => {
             return (
-              <tr key={vehiculo.id_marca}>
+              <tr key={vehiculo.id_vehiculo_arrendado}>
                 <td>{vehiculo.id_marca}</td>
                 <td>{vehiculo.id_vehiculo_arrendado}</td>
                 <td>{vehiculo.nombre}</td>
