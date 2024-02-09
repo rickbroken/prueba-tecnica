@@ -32,8 +32,6 @@ const TablaVehiculosArrendados: React.FC = () => {
     obtenerVehiculos();
   }, []);
 
-  console.log(vehiculos);
-
   return (
     <Grid container justifyContent={'center'}>
       <Grid container spacing={2} marginTop={"30px"}>

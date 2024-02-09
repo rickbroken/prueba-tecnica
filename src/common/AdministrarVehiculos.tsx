@@ -9,10 +9,19 @@ import CloseIcon from '@mui/icons-material/Close';
 import SaveIcon from '@mui/icons-material/Save';
 import SearchIcon from '@mui/icons-material/Search';
 import TablaVehiculosArrendados from "../components/TablaVehiculosArrendados";
+import { useState } from "react";
+import ModalBuscar from '../components/ModalBuscar';
+
 
 const AdministrarVehiculos: React.FC = () => {
+  const [modalBuscar, setModalBuscar] = useState<boolean>(true);
+
   return (
     <>
+      {
+        modalBuscar &&
+        <ModalBuscar setModalBuscar={setModalBuscar} />
+      }
       <Grid
         container
         width={"100%"}
@@ -102,7 +111,10 @@ const AdministrarVehiculos: React.FC = () => {
           </Grid>
 
           <Grid container xs={11.7} alignItems={'center'} gap={2} justifyContent={'end'} margin={'10px 0px'}>
-            <Button variant="contained" startIcon={<SearchIcon />}>
+            <Button
+              onClick={()=>setModalBuscar(true)}
+              variant="contained" 
+              startIcon={<SearchIcon />}>
               Buscar
             </Button>
             <Button variant="contained" color="success" startIcon={<SaveIcon />}>
