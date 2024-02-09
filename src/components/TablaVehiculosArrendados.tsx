@@ -3,6 +3,7 @@ import { type Vehiculo } from "../types";
 import { Button, Grid, Pagination, TextField } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CleaningServicesIcon from "@mui/icons-material/CleaningServices";
+import DeleteRegistroVehiculo from "./DeleteRegistroVehiculo";
 
 const token = import.meta.env.VITE_API_TOKEN as string;
 
@@ -67,24 +68,28 @@ const TablaVehiculosArrendados: React.FC = () => {
       <table width={"100%"} style={{ marginTop: "10px" }}>
         <thead>
           <tr>
-            <th>ID Marca</th>
             <th>ID vehiculo</th>
+            <th>ID Marca</th>
             <th>Nombre</th>
             <th>Placa</th>
             <th>Empresa Contratista</th>
             <th>Hoja de vida</th>
+            <th>Eliminar</th>
           </tr>
         </thead>
         <tbody>
           {vehiculos?.map((vehiculo) => {
             return (
               <tr key={vehiculo.id_vehiculo_arrendado}>
-                <td>{vehiculo.id_marca}</td>
                 <td>{vehiculo.id_vehiculo_arrendado}</td>
+                <td>{vehiculo.id_marca}</td>
                 <td>{vehiculo.nombre}</td>
                 <td>{vehiculo.placa}</td>
                 <td>{vehiculo.empresa_contratista}</td>
                 <td>{vehiculo.tiene_hoja_de_vida ? "SI" : "No"}</td>
+                <td style={{textAlign: 'center'}}>
+                  <DeleteRegistroVehiculo id_vehiculo_arrendado={vehiculo.id_vehiculo_arrendado}/>
+                </td>
               </tr>
             );
           })}
