@@ -7,10 +7,10 @@ interface Props {
 }
 
 export const eliminarRegistroVehiculo: React.FC<Props> = ({id_vehiculo_arrendado}) => {
-  console.log(id_vehiculo_arrendado);
+
   
   try {
-    fetch("https://back-end-bia-beta.up.railway.app/api/almacen/vehiculos/registro/vehiculo/arrendado/delete/6/", {
+    fetch(`https://back-end-bia-beta.up.railway.app/api/almacen/vehiculos/registro/vehiculo/arrendado/delete/${id_vehiculo_arrendado}/`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },

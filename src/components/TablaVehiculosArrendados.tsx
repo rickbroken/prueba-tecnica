@@ -31,7 +31,7 @@ const TablaVehiculosArrendados: React.FC = () => {
       }
     };
     obtenerVehiculos();
-  }, []);
+  }, [vehiculos]);
 
   return (
     <Grid container justifyContent={'center'}>
@@ -79,19 +79,21 @@ const TablaVehiculosArrendados: React.FC = () => {
         </thead>
         <tbody>
           {vehiculos?.map((vehiculo) => {
-            return (
-              <tr key={vehiculo.id_vehiculo_arrendado}>
-                <td>{vehiculo.id_vehiculo_arrendado}</td>
-                <td>{vehiculo.id_marca}</td>
-                <td>{vehiculo.nombre}</td>
-                <td>{vehiculo.placa}</td>
-                <td>{vehiculo.empresa_contratista}</td>
-                <td>{vehiculo.tiene_hoja_de_vida ? "SI" : "No"}</td>
-                <td style={{textAlign: 'center'}}>
-                  <DeleteRegistroVehiculo id_vehiculo_arrendado={vehiculo.id_vehiculo_arrendado}/>
-                </td>
-              </tr>
-            );
+            if (vehiculo.id_vehiculo_arrendado !== undefined) {
+              return (
+                <tr key={vehiculo.id_vehiculo_arrendado}>
+                  <td>{vehiculo.id_vehiculo_arrendado}</td>
+                  <td>{vehiculo.id_marca}</td>
+                  <td>{vehiculo.nombre}</td>
+                  <td>{vehiculo.placa}</td>
+                  <td>{vehiculo.empresa_contratista}</td>
+                  <td>{vehiculo.tiene_hoja_de_vida ? "SI" : "No"}</td>
+                  <td style={{textAlign: 'center'}}>
+                    <DeleteRegistroVehiculo id_vehiculo_arrendado={vehiculo.id_vehiculo_arrendado}/>
+                  </td>
+                </tr>
+              )
+            }
           })}
         </tbody>
       </table>
