@@ -7,29 +7,39 @@ import DeleteRegistroVehiculo from "./DeleteRegistroVehiculo";
 
 const token = import.meta.env.VITE_API_TOKEN as string;
 
+interface Params {
+  nombre: string;
+  placa: string;
+}
+
 const TablaVehiculosArrendados: React.FC = () => {
   const [vehiculos, setVehiculos] = useState<Vehiculo[]>([]);
 
+  const [params, setParams] = useState<Params>({
+    nombre: "",
+    placa: "",
+  });
+  const obtenerVehiculos = async () => {
+    try {
+      fetch(
+        `https://back-end-bia-beta.up.railway.app/api/almacen/vehiculos/busqueda/vehiculo/arrendado/?nombre=${params.nombre}&placa=${params.placa}`,
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+        }
+      )
+        .then((res) => res.json())
+        .then((res) => setVehiculos(res.data))
+        .catch((err) => console.log("Error interno CODE: " + err));
+    } catch (error) {
+      console.log("tienes un error " + error);
+    }
+  };
+
   useEffect(() => {
-    const obtenerVehiculos = async () => {
-      try {
-        fetch(
-          "https://back-end-bia-beta.up.railway.app/api/almacen/vehiculos/busqueda/vehiculo/arrendado/",
-          {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`,
-              "Content-Type": "application/json",
-            },
-          }
-        )
-          .then((res) => res.json())
-          .then((res) => setVehiculos(res.data))
-          .catch((err) => console.log("Error interno CODE: " + err));
-      } catch (error) {
-        console.log("tienes un error " + error);
-      }
-    };
     obtenerVehiculos();
   }, [vehiculos]);
 
@@ -43,6 +53,9 @@ const TablaVehiculosArrendados: React.FC = () => {
             id="outlined-basic"
             label="Nombre"
             variant="outlined"
+            onChange={(e) =>
+              setParams((prev) => ({ ...prev, nombre: e.target.value }))
+            }
           />
         </Grid>
         <Grid item xs={3}>
@@ -52,12 +65,10 @@ const TablaVehiculosArrendados: React.FC = () => {
             id="outlined-basic"
             label="Placa"
             variant="outlined"
+            onChange={(e) =>
+              setParams((prev) => ({ ...prev, placa: e.target.value }))
+            }
           />
-        </Grid>
-        <Grid item>
-          <Button variant="contained" startIcon={<SearchIcon />}>
-            Buscar
-          </Button>
         </Grid>
         <Grid item>
           <Button variant="outlined" startIcon={<CleaningServicesIcon />}>
