@@ -1,36 +1,49 @@
 import { Grid } from "@mui/material";
-import { Link } from "react-router-dom";
-
+import { Link, useNavigate } from "react-router-dom";
 
 const Header: React.FC = () => {
+  const navigate = useNavigate();
+
+  const redirectAdministrador: ()=> void = () => {
+    navigate('/administrar-vehiculos');
+  }
+
   return (
     <Grid
-      container xs={1} md={2}
-      position={'relative'}
-      overflow={'hidden'}
+      container
+      xs={2}
+      position={"relative"}
+      overflow={"hidden"}
       className="header"
-      style={{height: '95vh'}} 
-      >
-      <Grid 
+      justifyContent={'center'}
+      style={{ height: "95vh" }}
+    >
+      <Grid
         item
-        width={'100%'}
-        height={'80px'}
-        bgcolor={'#0e4564'}
-        display={'flex'}
-        justifyContent={'center'}
-        alignItems={'center'}
+        width={"100%"}
+        height={"80px"}
+        bgcolor={"#0e4564"}
+        display={"flex"}
+        justifyContent={"center"}
+        alignItems={"center"}
       >
-        <span style={{color: 'white'}} >LOGO</span>
+        <span style={{ color: "white" }}>LOGO</span>
       </Grid>
 
-      <Grid item className='nav'>
-        <ul>
+      <Grid item className="nav" width={"95%"} justifyContent={"center"}>
+        <ul style={{ width: "100%" }}>
           <Grid 
-            item
-
+            item 
+            bgcolor={"#cacaca"}
+            borderRadius={'5px'}
+            padding={'10px 0px'}
+            width={"100%"}
+            onClick={redirectAdministrador}
+            className="pointer"
           >
             <Link
-              to={'/administrar-vehiculos'}
+              className="link"
+              to={"/administrar-vehiculos"}
             >
               Administrador Vehículo Arrendado
             </Link>
@@ -39,6 +52,6 @@ const Header: React.FC = () => {
       </Grid>
     </Grid>
   );
-}
- 
+};
+
 export default Header;
