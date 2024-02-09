@@ -94,12 +94,9 @@ const TablaVehiculosArrendados: React.FC = () => {
             <th>Eliminar</th>
           </tr>
         </thead>
+        
         <tbody>
-          {vehiculos.length === 0 ?
-            <Grid item position={'absolute'} display={'flex'} justifyContent={'center'} width={'100%'}>
-              <img width={50} src={Loading} alt="Mi SVG" />
-            </Grid>
-          :
+          {vehiculos.length !== 0 &&
             vehiculos?.map((vehiculo) => {
               if (vehiculo.id_vehiculo_arrendado !== undefined) {
                 return (
@@ -119,7 +116,14 @@ const TablaVehiculosArrendados: React.FC = () => {
           })}
         </tbody>
       </table>
-      <Pagination count={5} />
+
+      {vehiculos.length === 0 &&
+      <Grid item display={'flex'} justifyContent={'center'} width={'100%'}>
+        <img width={50} src={Loading} alt="Mi SVG" />
+      </Grid>
+      }
+
+      <Pagination count={1} />
     </Grid>
   );
 };

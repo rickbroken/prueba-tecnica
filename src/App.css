@@ -78,3 +78,14 @@ ul a {
   font-size: 13px;
   padding: 0;
 }
+
+.input-date {
+  background-color: white;
+  color: black;
+  padding: 10px 5px;
+  border-radius: 5px;
+  border: #ddd solid 1px;
+  cursor: pointer;
+  width: 75%;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}

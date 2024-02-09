@@ -7,12 +7,7 @@ import SaveIcon from '@mui/icons-material/Save';
 import SearchIcon from '@mui/icons-material/Search';
 import TablaVehiculosArrendados from "../components/TablaVehiculosArrendados";
 import ModalBuscar from '../components/ModalBuscar';
-import { DemoContainer } from '@mui/x-date-pickers/internals/demo';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
-import { DatePicker } from '@mui/x-date-pickers/DatePicker';
 import { type Vehiculo } from "../types";
-import { format } from 'date-fns';
 import { enviarRegistroVehiculo } from "../functions/enviarRegistroVehiculo";
 
 
@@ -29,25 +24,25 @@ const AdministrarVehiculos: React.FC = () => {
       descripcion : "",
       asignar_hoja_de_vida : false,
       es_agendable : false,
-      fecha_inicio:'',
+      fecha_inicio:"",
       fecha_fin:""
   });
 
-  const handleFechaInicio = (value:  { format: () => string } | null) => {
-    if (value) {
-      const fechaInicio = value.format();
-      const fechaFormateada = format(new Date(fechaInicio), 'yyyy-MM-dd');
-      setNuevoVehiculo((prev)=>({...prev, fecha_inicio: fechaFormateada}));
+  const handleFechaInicio = (e: React.ChangeEvent<HTMLInputElement>) => {    
+    console.log(e.target.value)    
+    if (e) {
+      const fechaInicio = e.target.value;
+      setNuevoVehiculo((prev)=>({...prev, fecha_inicio: fechaInicio}));
     } else {
       console.error('El valor proporcionado no contiene $id o es null.');
     }
   };
   
-  const handleFechaFin = (value: { format: () => string } | null) => {
-    if (value) {
-      const fechaInicio = value.format();
-      const fechaFormateada = format(new Date(fechaInicio), 'yyyy-MM-dd');
-      setNuevoVehiculo((prev)=>({...prev, fecha_fin: fechaFormateada}));
+  const handleFechaFin = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.value)    
+    if (e) {
+      const fechaFin = e.target.value;
+      setNuevoVehiculo((prev)=>({...prev, fecha_fin: fechaFin}));
     } else {
       console.error('El valor proporcionado no contiene $id o es null.');
     }
@@ -134,27 +129,21 @@ const AdministrarVehiculos: React.FC = () => {
 
           <Grid container xs={11.7} alignItems={'center'}>
             <Grid item sm={3}>
-              <LocalizationProvider  dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']}>
-                  <DatePicker 
-                    label="Fecha Inicio *"
-                    onChange={handleFechaInicio}/>
-                </DemoContainer>
-              </LocalizationProvider>
+              <input
+                value={nuevoVehiculo.fecha_inicio !== undefined || null ? nuevoVehiculo.fecha_inicio : '2024-02-09'}
+                onChange={handleFechaInicio}
+                className="input-date" type="date" />
             </Grid>
             <Grid item sm={3}>
-              <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <DemoContainer components={['DatePicker']}>
-                  <DatePicker 
-                    label="Fecha Fin *" 
-                    onChange={handleFechaFin}/>
-                </DemoContainer>
-              </LocalizationProvider>
+              <input 
+                  value={nuevoVehiculo.fecha_fin !== undefined || null ? nuevoVehiculo.fecha_fin : '2024-02-29'}
+                  onChange={handleFechaFin}
+                  className="input-date" type="date" />
             </Grid>
             <Grid item>
               <span>Desea Agregarle Hoja de Vida:</span>
               <Checkbox
-                checked={nuevoVehiculo.asignar_hoja_de_vida}
+                checked={nuevoVehiculo.asignar_hoja_de_vida !== undefined || null ? nuevoVehiculo.asignar_hoja_de_vida : false}
                 onChange={() => setNuevoVehiculo((prev) => ({ ...prev, asignar_hoja_de_vida: !nuevoVehiculo.asignar_hoja_de_vida}))}
                 sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
               />
@@ -162,7 +151,7 @@ const AdministrarVehiculos: React.FC = () => {
             <Grid item margin={'0px 10px'}>
               <span>Es agendable:</span>
               <Checkbox
-                checked={nuevoVehiculo.es_agendable}
+                checked={nuevoVehiculo.es_agendable !== undefined || null ? nuevoVehiculo.es_agendable : false}
                 onChange={() => setNuevoVehiculo((prev) => ({ ...prev, es_agendable: !nuevoVehiculo.es_agendable}))}
                 sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
               />

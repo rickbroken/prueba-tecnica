@@ -59,6 +59,7 @@ const ModalBuscar: React.FC<Props> = ({ setModalBuscar, setNuevoVehiculo }) => {
       
       setNuevoVehiculo(vehiculos[0]);
     }
+    setModalBuscar(false);
   }
 
   console.log(vehiculos);

@@ -32,7 +32,7 @@ const Header: React.FC = () => {
       </Grid>
 
       <Grid height={'100%'}>
-        <Grid item className="nav" width={"95%"} justifyContent={"center"}>
+        <Grid item style={{margin:'10px auto'}} className="nav" width={"95%"} justifyContent={"center"}>
           <ul style={{ width: "100%" }}>
             <Grid 
               item 

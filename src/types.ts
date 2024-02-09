@@ -11,7 +11,7 @@ export interface Vehiculo {
   empresa_contratista:   string;
   tiene_hoja_de_vida?:    boolean;
   asignar_hoja_de_vida?: boolean;
-  fecha_inicio?: string | null;
+  fecha_inicio?: string;
   es_agendable?: boolean;
   id_marca:              number;
   fecha_fin?: string;
