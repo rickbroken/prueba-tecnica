@@ -7,14 +7,17 @@ import SaveIcon from '@mui/icons-material/Save';
 import SearchIcon from '@mui/icons-material/Search';
 import TablaVehiculosArrendados from "../components/TablaVehiculosArrendados";
 import ModalBuscar from '../components/ModalBuscar';
-import { type Vehiculo } from "../types";
+import { Marca, type Vehiculo } from "../types";
 import { enviarRegistroVehiculo } from "../functions/enviarRegistroVehiculo";
 
 
+const token = import.meta.env.VITE_API_TOKEN as string;
 
 
 const AdministrarVehiculos: React.FC = () => {
   const [modalBuscar, setModalBuscar] = useState<boolean>(false);
+  const [marcas, setMarcas] = useState<Marca[]>([]);
+  const [inputMarca, setInputMarca] = useState<string>('');
 
   const [nuevoVehiculo, setNuevoVehiculo] = useState<Vehiculo>({
       nombre: "",
@@ -48,9 +51,32 @@ const AdministrarVehiculos: React.FC = () => {
     }
   };
 
+  const buscarMarca = () => {
+    console.log(marcas);
+    marcas.map((marca)=>{
+      if(marca.nombre.toLowerCase() === inputMarca.toLowerCase()){
+        setNuevoVehiculo((prev)=>({...prev, id_marca:marca.id_marca}))
+      }
+    })
+  }
+
 
   useEffect(()=>{
-    console.log(nuevoVehiculo);
+    try {
+      fetch('https://back-end-bia-beta.up.railway.app/api/almacen/marcas/get-list/',{
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        }
+      })
+      .then((res)=> res.json())
+      .then((res)=> setMarcas(res))
+      .catch((err)=>console.log('Error al intentar traer lista de amrcas. Code:'+err))
+    } catch (error) {
+      console.log(error)      
+    }
+    console.log(nuevoVehiculo)    
   },[nuevoVehiculo])
   
 
@@ -99,6 +125,9 @@ const AdministrarVehiculos: React.FC = () => {
               id="outlined-basic"
               placeholder="Marca *"
               variant="outlined"
+              onBlur={buscarMarca}
+              onChange={(e) => setInputMarca(e.target.value)}
+              value={inputMarca}
             />
           </Grid>
           <Grid item sm={3}>

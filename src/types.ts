@@ -29,3 +29,10 @@ export interface  NuevoVehiculo{
   tiene_hoja_de_vida?: boolean;
   fecha_fin: string;
 }
+
+export interface Marca {
+  id_marca:      number;
+  nombre:        string;
+  activo:        boolean;
+  item_ya_usado: boolean;
+}
