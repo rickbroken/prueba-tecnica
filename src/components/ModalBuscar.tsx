@@ -55,6 +55,8 @@ const ModalBuscar: React.FC<Props> = ({ setModalBuscar, setNuevoVehiculo }) => {
 
   const seleccionarVehiculo = () => {
     if (vehiculos && vehiculos.length > 0) {
+      console.log('cambiando...');
+      
       setNuevoVehiculo(vehiculos[0]);
     }
   }
@@ -175,6 +177,7 @@ const ModalBuscar: React.FC<Props> = ({ setModalBuscar, setNuevoVehiculo }) => {
               Cancelar
             </Button>
             <Button
+              onClick={seleccionarVehiculo}
               variant="contained"
               startIcon={<SaveIcon />}
             >

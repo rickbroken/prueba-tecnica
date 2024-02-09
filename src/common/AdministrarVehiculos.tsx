@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Checkbox, Grid, TextField } from "@mui/material";
 import TitleMain from "../components/TitleMain";
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -54,7 +54,9 @@ const AdministrarVehiculos: React.FC = () => {
   };
 
 
-  console.log(nuevoVehiculo);
+  useEffect(()=>{
+    console.log(nuevoVehiculo);
+  },[nuevoVehiculo])
   
 
   return (
