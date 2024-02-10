@@ -48,7 +48,9 @@ const TablaVehiculosArrendados: React.FC = () => {
 
   useEffect(() => {
     obtenerVehiculos();
-  }, [vehiculos]);
+  }, []);
+
+  
 
   return (
     <Grid container justifyContent={'center'}>
